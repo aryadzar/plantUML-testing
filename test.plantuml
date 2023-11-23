@@ -1,0 +1,71 @@
+@startuml test
+
+class Customer{
+    -name : String
+    -address : String
+}
+
+class Order{
+    -date : Date
+    -status : String
+    +calcSubTotal() : double
+    +calcTax() : double
+    +calcTotal() : double
+    +calcTotalWeight() : double
+}
+
+class OrderDetail{
+    -quality : String
+    -taxStatus : String
+    +calcSubTotal() : double
+    +calcTax() : double
+    +calcTotal() : double
+}
+
+class Item {
+    -shippingWeight : double
+    -description : String
+    +getPriceForQuantity() : double
+    +getTax() : double
+    +inStock() : int
+}
+
+class Payment{
+    -amount : double
+}
+
+class Cash{
+    -cashTendered : float
+}
+
+class Check {
+    -name : String
+    -bankId : String
+    -expDate : Date
+    +authorized() : boolean
+}
+
+class Credit{
+    -name : String
+    -type : String
+    -expDate : Date
+    +authorized() : boolean
+}
+
+Cash ---|> Payment 
+Check ---|> Payment
+Credit ---|> Payment
+
+Customer "   1" --- "0..*   " Order
+
+OrderDetail "1*..o" ---o "1" Order
+
+OrderDetail "0..*"---"1" Item
+
+Payment "1..* "---"1" Order
+
+
+
+
+
+@enduml
